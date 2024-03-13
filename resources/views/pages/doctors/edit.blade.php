@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Advanced Forms')
+@section('title', 'Edit Doctor')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,7 +16,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Doctors Form</h1>
+                <h1>Edit Doctors Form</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
@@ -30,19 +30,20 @@
 
 
                 <div class="card">
-                    <form action="{{ route('doctors.store') }}" method="POST">
+                    <form action="{{ route('doctors.update', $doctor) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="card-header">
                             <h4>Input Text</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Doctor Name</label>
                                 <input type="text"
                                     class="form-control @error('doctor_name')
                                 is-invalid
                             @enderror"
-                                    name="doctor_name">
+                                    name="doctor_name" value="{{ $doctor->doctor_name }}">
                                 @error('doctor_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -55,7 +56,7 @@
                                     class="form-control @error('doctor_specialist')
                                 is-invalid
                             @enderror"
-                                    name="doctor_specialist">
+                                    name="doctor_specialist" value="{{ $doctor->doctor_specialist }}">
                                 @error('doctor_specialist')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -63,12 +64,12 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Doctor Email</label>
                                 <input type="email"
                                     class="form-control @error('doctor_email')
                                 is-invalid
                             @enderror"
-                                    name="doctor_email">
+                                    name="doctor_email" value="{{ $doctor->doctor_email }}">
                                 @error('doctor_email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -77,25 +78,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="doctor_phone">
+                                <label>Doctor Phone</label>
+                                <input type="text" class="form-control" name="doctor_phone" value="{{ $doctor->doctor_phone }}">
                             </div>
 
                             <div class="form-group">
-                                <label>SIP</label>
-                                <input type="text" class="form-control" name="sip">
+                                <label>Doctor SIP</label>
+                                <input type="text" class="form-control" name="sip" value="{{ $doctor->sip }}">
                             </div>
 
-                            <div class="form-group mb-0">
-                                <label>Address</label>
-                                <textarea class="form-control" name="address"
-                                    data-height="150"
-                                    required=""></textarea>
+                            <div class="form-group">
+                                <label>Doctor Address</label>
+                                <textarea class="form-control" name="address" data-height="150">{{ $doctor->address }}</textarea>
                             </div>
 
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-success">Submit</button>
+                            <a href="{{ route('doctors.index') }}" class="btn btn-danger">Cancel</a>
                         </div>
                     </form>
                 </div>

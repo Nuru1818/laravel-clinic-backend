@@ -35,6 +35,7 @@ class DoctorController extends Controller
             'doctor_email' => 'required|email',
             'doctor_phone' => 'required',
             'sip' => 'required',
+            'address' => 'required',
         ]);
 
         DB::table('doctors')->insert([
@@ -43,6 +44,7 @@ class DoctorController extends Controller
             'doctor_email' => $request->doctor_email,
             'doctor_phone' => $request->doctor_phone,
             'sip' => $request->sip,
+            'address' => $request->address,
             'created_at' => now(),
         ]);
 
@@ -59,8 +61,10 @@ class DoctorController extends Controller
      //edit
      public function edit($id)
      {
-         $doctor = DB::table('doctors')->where('id', $id)->first();
-         return view('pages.doctors.edit', compact('doctor'));
+        //  $doctor = DB::table('doctors')->where('id', $id)->first();
+        //  return view('pages.doctors.edit', compact('doctor'));
+        $doctor = Doctor::find($id);
+        return view('pages.doctors.edit', compact('doctor'));
      }
 
      //update
@@ -68,10 +72,11 @@ class DoctorController extends Controller
     {
         $request->validate([
             'doctor_name' => 'required',
-            'doctor_specialist' => 'required|email',
-            'doctor_email' => 'required',
+            'doctor_specialist' => 'required',
+            'doctor_email' => 'required|email',
             'doctor_phone' => 'required',
             'sip' => 'required',
+            'address' => 'required',
         ]);
 
         DB::table('doctors')->where('id', $id)->update([
@@ -80,6 +85,8 @@ class DoctorController extends Controller
             'doctor_email' => $request->doctor_email,
             'doctor_phone' => $request->doctor_phone,
             'sip' => $request->sip,
+            'address' => $request->address,
+            'updated_at' => now(),
         ]);
 
         return redirect()->route('doctors.index')->with('success','Doctor updated successfully.');
