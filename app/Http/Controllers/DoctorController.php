@@ -43,6 +43,7 @@ class DoctorController extends Controller
             'doctor_email' => $request->doctor_email,
             'doctor_phone' => $request->doctor_phone,
             'sip' => $request->sip,
+            'created_at' => now(),
         ]);
 
         return redirect()->route('doctors.index')->with('success','Doctor created successfully.');
