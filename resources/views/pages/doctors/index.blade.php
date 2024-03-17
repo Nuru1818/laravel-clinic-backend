@@ -70,7 +70,7 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>SIP</th>
-                                            <th>Created At</th>
+                                            <th>Photo</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($doctors as $doctor)
@@ -90,7 +90,14 @@
                                                 <td>
                                                     {{ $doctor->sip }}
                                                 </td>
-                                                <td>{{ $doctor->created_at }}</td>
+                                                <td>
+                                                    @if($doctor->photo)
+                                                    <img src="{{ asset(''.$doctor->photo) }}" alt=""
+                                                    width="100px" class="img-thumbnail">
+                                                    @else
+                                                    <span class="badge badge-danger">No Image</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('doctors.edit', $doctor->id) }}'

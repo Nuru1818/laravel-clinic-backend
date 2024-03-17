@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Advanced Forms')
+@section('title', 'Add Doctor')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -27,10 +27,8 @@
             <div class="section-body">
                 <h2 class="section-title">Doctors</h2>
 
-
-
                 <div class="card">
-                    <form action="{{ route('doctors.store') }}" method="POST">
+                    <form action="{{ route('doctors.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -75,22 +73,78 @@
                                     </div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="number" class="form-control" name="doctor_phone">
+                                <input type="number"
+                                    class="form-control @error('doctor_phone')
+                                is-invalid
+                            @enderror"
+                                    name="doctor_phone">
+                                @error('doctor_phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-
                             <div class="form-group">
                                 <label>SIP</label>
-                                <input type="text" class="form-control" name="sip">
+                                <input type="text"
+                                    class="form-control @error('sip')
+                                is-invalid
+                            @enderror"
+                                    name="sip">
+                                @error('sip')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>ID IHS</label>
+                                <input type="text"
+                                    class="form-control @error('id_ihs')
+                                is-invalid
+                            @enderror"
+                                    name="id_ihs">
+                                @error('id_ihs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>NIK</label>
+                                <input type="text"
+                                    class="form-control @error('nik')
+                                is-invalid
+                            @enderror"
+                                    name="nik">
+                                @error('nik')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-0">
                                 <label>Address</label>
                                 <textarea class="form-control" name="address"
-                                    data-height="150"
+                                    data-height="100"
                                     required=""></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Photo</label>
+                                <input type="file"
+                                    class="form-control @error('photo')
+                                is-invalid
+                            @enderror"
+                                    name="photo">
+                                @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                         </div>

@@ -34,19 +34,55 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_email' => 'required|email',
             'doctor_phone' => 'required',
-            'sip' => 'required',
             'address' => 'required',
+            'sip' => 'required',
+            'id_ihs' => 'required',
+            'nik' => 'required',
         ]);
 
-        DB::table('doctors')->insert([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_email' => $request->doctor_email,
-            'doctor_phone' => $request->doctor_phone,
-            'sip' => $request->sip,
-            'address' => $request->address,
-            'created_at' => now(),
-        ]);
+
+        // DB::table('doctors')->insert([
+        //     'doctor_name' => $request->doctor_name,
+        //     'doctor_specialist' => $request->doctor_specialist,
+        //     'doctor_email' => $request->doctor_email,
+        //     'doctor_phone' => $request->doctor_phone,
+        //     'address' => $request->address,
+        //     'sip' => $request->sip,
+        //     'id_ihs' => $request->sip,
+        //     'nik' => $request->sip,
+        //     'created_at' => now(),
+        // ]);
+
+        $doctor = new Doctor;
+        $doctor->doctor_name = $request->doctor_name;
+        $doctor->doctor_specialist = $request->doctor_specialist;
+        $doctor->doctor_email = $request->doctor_email;
+        $doctor->doctor_phone = $request->doctor_phone;
+        $doctor->address = $request->address;
+        $doctor->sip = $request->sip;
+        $doctor->id_ihs = $request->id_ihs;
+        $doctor->nik = $request->nik;
+        $doctor->created_at =  now();
+        $doctor->save();
+
+        //if image exist save to public/image *cara1
+        // if($request->file('photo')){
+        //     $photo = $request->file('photo');
+        //     $photo_name = time().'.'.$photo->extension();
+        //     $photo->move(public_path('images'), $photo_name);
+        //     DB::table('doctors')->where('id', DB::getPdo()->lastInsertId())->update([
+        //         'photo' => $photo_name
+        //     ]);
+        // }
+
+        //if image exist save to public/image *cara2
+        if($request->hasFile('photo')){
+            $image = $request->file('photo');
+            $image->storeAs('public/doctors', $doctor->id . '.' .$image->getClientOriginalExtension());
+            $doctor->photo = 'storage/doctors/' . $doctor->id .'.' .$image->getClientOriginalExtension();
+            $doctor->save();
+
+        }
 
         return redirect()->route('doctors.index')->with('success','Doctor created successfully.');
     }
