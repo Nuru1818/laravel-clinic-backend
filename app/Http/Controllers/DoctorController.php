@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DoctorController extends Controller
 {
@@ -106,24 +108,52 @@ class DoctorController extends Controller
      //update
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'doctor_name' => 'required',
-            'doctor_specialist' => 'required',
-            'doctor_email' => 'required|email',
-            'doctor_phone' => 'required',
-            'sip' => 'required',
-            'address' => 'required',
-        ]);
+        // $request->validate([
+        //     'doctor_name' => 'required',
+        //     'doctor_specialist' => 'required',
+        //     'doctor_email' => 'required|email',
+        //     'doctor_phone' => 'required',
+        //     'sip' => 'required',
+        //     'address' => 'required',
+        // ]);
 
-        DB::table('doctors')->where('id', $id)->update([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_email' => $request->doctor_email,
-            'doctor_phone' => $request->doctor_phone,
-            'sip' => $request->sip,
-            'address' => $request->address,
-            'updated_at' => now(),
-        ]);
+        // DB::table('doctors')->where('id', $id)->update([
+        //     'doctor_name' => $request->doctor_name,
+        //     'doctor_specialist' => $request->doctor_specialist,
+        //     'doctor_email' => $request->doctor_email,
+        //     'doctor_phone' => $request->doctor_phone,
+        //     'sip' => $request->sip,
+        //     'address' => $request->address,
+        //     'updated_at' => now(),
+        // ]);
+        $doctor = Doctor::find($id);
+        $doctor->doctor_name = $request->doctor_name;
+        $doctor->doctor_specialist = $request->doctor_specialist;
+        $doctor->doctor_email = $request->doctor_email;
+        $doctor->doctor_phone = $request->doctor_phone;
+        $doctor->address = $request->address;
+        $doctor->sip = $request->sip;
+        $doctor->id_ihs = $request->id_ihs;
+        $doctor->nik = $request->nik;
+        $doctor->updated_at =  now();
+
+        if($request->hasFile('photo'))
+    {
+        // $destination = 'storage/doctors/' . $doctor->photo;
+        // if(File::exists($destination))
+        // {
+        //     File::delete($destination);
+        // }
+        // $file = $request->file('photo');
+        // $extension = $file->getClientOriginalExtension();
+        // $filename = time(). '.' . $extension;
+        // $file->move('storage/doctors/', $filename);
+        // $doctor->photo = $filename;
+        $image = $request->file('photo');
+        $image->storeAs('public/doctors', $doctor->id . '.' .$image->getClientOriginalExtension());
+        $doctor->photo = 'storage/doctors/' . $doctor->id .'.' .$image->getClientOriginalExtension();
+    }
+    $doctor->save();
 
         return redirect()->route('doctors.index')->with('success','Doctor updated successfully.');
     }

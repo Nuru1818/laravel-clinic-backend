@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('doctors.update', $doctor) }}" method="POST">
+                    <form action="{{ route('doctors.update', $doctor) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -90,6 +90,17 @@
                             <div class="form-group">
                                 <label>Doctor Address</label>
                                 <textarea class="form-control" name="address" data-height="150">{{ $doctor->address }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Update photo</label> <br>
+                                @if($doctor->photo)
+                                                    <img src="{{ asset(''.$doctor->photo) }}" alt=""
+                                                    width="100px" class="img-thumbnail">
+                                                    @else
+                                                    <span class="badge badge-danger">No Image</span>
+                                                    @endif
+                                <input type="file" name="photo" id="" class="form-control mt-2">
                             </div>
 
                         </div>
