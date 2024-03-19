@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Doctor Name</label>
+                                <label>Name</label>
                                 <input type="text"
                                     class="form-control @error('doctor_name')
                                 is-invalid
@@ -64,7 +64,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Doctor Email</label>
+                                <label>Email</label>
                                 <input type="email"
                                     class="form-control @error('doctor_email')
                                 is-invalid
@@ -78,13 +78,22 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Doctor Phone</label>
+                                <label>Phone</label>
                                 <input type="text" class="form-control" name="doctor_phone" value="{{ $doctor->doctor_phone }}">
                             </div>
 
                             <div class="form-group">
-                                <label>Doctor SIP</label>
+                                <label>SIP</label>
                                 <input type="text" class="form-control" name="sip" value="{{ $doctor->sip }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>IHS</label>
+                                <input type="text" class="form-control" name="id_ihs" value="{{ $doctor->id_ihs }}">
+                            </div>
+                            <div class="form-group">
+                                <label>NIK</label>
+                                <input type="text" class="form-control" name="nik" value="{{ $doctor->nik }}">
                             </div>
 
                             <div class="form-group">

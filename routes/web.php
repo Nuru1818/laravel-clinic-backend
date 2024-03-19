@@ -27,5 +27,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     //doctor
     Route::resource('doctors', DoctorController::class);
+    //schedule
 });
 

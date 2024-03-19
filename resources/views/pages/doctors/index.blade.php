@@ -70,6 +70,8 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>SIP</th>
+                                            <th>IHS</th>
+                                            <th>NIK</th>
                                             <th>Photo</th>
                                             <th>Action</th>
                                         </tr>
@@ -86,6 +88,12 @@
                                                 </td>
                                                 <td>
                                                     {{ $doctor->doctor_phone }}
+                                                </td>
+                                                <td>
+                                                    {{ $doctor->id_ihs }}
+                                                </td>
+                                                <td>
+                                                    {{ $doctor->nik }}
                                                 </td>
                                                 <td>
                                                     {{ $doctor->sip }}
