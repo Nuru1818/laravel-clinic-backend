@@ -21,10 +21,10 @@
                 <a class="nav-link"
                     href="{{ route('doctors.index') }}"><i class="fas fa-user-md"></i> <span>Doctors</span></a>
             </li>
-            {{-- <li class="{{ Request::is('schedule') ? 'active' : '' }}">
+            <li class="{{ Request::is('doctor-schedules') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ route('schedule.index') }}"><i class="fas fa-calender"></i> <span>Schedule</span></a>
-            </li> --}}
+                    href="{{ route('doctor-schedules.index') }}"><i class="fas fa-calendar"></i> <span>Doctor Schedules</span></a>
+            </li>
 
 
     </aside>
