@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Doctor')
+@section('title', 'Edit Doctor Schedules')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,21 +16,19 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Doctors Form</h1>
+                <h1>Edit Doctor Schedules Form</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Doctors</div>
+                    <div class="breadcrumb-item">Doctor Schedules</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Doctors</h2>
-
-
+                <h2 class="section-title">Doctor Schedules</h2>
 
                 <div class="card">
-                    <form action="{{ route('doctors.update', $doctor) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('doctor-schedules.update', $doctorSchedules) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -38,84 +36,56 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Doctor</label>
+                                <div class="form-group">
+                                    <select class="form-control selectric @error('doctor_id') is-invalid @enderror" name="doctor_id" id="">
+                                        @foreach ($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}" @selected(old('doctor_id') == $doctor->id)>
+                                                {{ $doctor->doctor_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Senin</label>
                                 <input type="text"
-                                    class="form-control @error('doctor_name')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_name" value="{{ $doctor->doctor_name }}">
-                                @error('doctor_name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                    class="form-control" name="senin" value="{{ $doctorSchedules->time }}">
                             </div>
                             <div class="form-group">
-                                <label>Specialist</label>
+                                <label>Jadwal Selasa</label>
                                 <input type="text"
-                                    class="form-control @error('doctor_specialist')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_specialist" value="{{ $doctor->doctor_specialist }}">
-                                @error('doctor_specialist')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                    class="form-control" name="selasa" value="{{ $doctorSchedules->time }}">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('doctor_email')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_email" value="{{ $doctor->doctor_email }}">
-                                @error('doctor_email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" name="doctor_phone" value="{{ $doctor->doctor_phone }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>SIP</label>
-                                <input type="text" class="form-control" name="sip" value="{{ $doctor->sip }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>IHS</label>
-                                <input type="text" class="form-control" name="id_ihs" value="{{ $doctor->id_ihs }}">
+                                <label>Jadwal Rabu</label>
+                                <input type="text"
+                                    class="form-control" name="rabu" value="{{ $doctorSchedules->time }}">
                             </div>
                             <div class="form-group">
-                                <label>NIK</label>
-                                <input type="text" class="form-control" name="nik" value="{{ $doctor->nik }}">
+                                <label>Jadwal Kamis</label>
+                                <input type="text"
+                                    class="form-control" name="kamis" value="{{ $doctorSchedules->time }}">
                             </div>
-
                             <div class="form-group">
-                                <label>Doctor Address</label>
-                                <textarea class="form-control" name="address" data-height="150">{{ $doctor->address }}</textarea>
+                                <label>Jadwal Jumat</label>
+                                <input type="text"
+                                    class="form-control" name="jumat" value="{{ $doctorSchedules->time }}">
                             </div>
-
                             <div class="form-group">
-                                <label>Update photo</label> <br>
-                                @if($doctor->photo)
-                                                    <img src="{{ asset(''.$doctor->photo) }}" alt=""
-                                                    width="100px" class="img-thumbnail">
-                                                    @else
-                                                    <span class="badge badge-danger">No Image</span>
-                                                    @endif
-                                <input type="file" name="photo" id="" class="form-control mt-2">
+                                <label>Jadwal Sabtu</label>
+                                <input type="text"
+                                    class="form-control" name="sabtu" value="{{ $doctorSchedules->time }}">
                             </div>
-
+                            <div class="form-group">
+                                <label>Jadwal Minggu</label>
+                                <input type="text"
+                                    class="form-control" name="minggu" value="{{ $doctorSchedules->time }}">
+                            </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button class="btn btn-success">Submit</button>
-                            <a href="{{ route('doctors.index') }}" class="btn btn-danger">Cancel</a>
+                            <button class="btn btn-warning">Update</button>
+                            <a href="{{ route('doctor-schedules.index') }}" class="btn btn-danger">Cancel</a>
                         </div>
                     </form>
                 </div>

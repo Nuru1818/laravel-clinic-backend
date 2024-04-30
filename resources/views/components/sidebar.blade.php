@@ -25,6 +25,10 @@
                 <a class="nav-link"
                     href="{{ route('doctor-schedules.index') }}"><i class="fas fa-calendar"></i> <span>Doctor Schedules</span></a>
             </li>
+            <li class="{{ Request::is('patient') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ route('patients.index') }}"><i class="fas fa-users"></i> <span>Patients</span></a>
+            </li>
 
 
     </aside>
